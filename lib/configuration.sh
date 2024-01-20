@@ -253,7 +253,7 @@ case $RELEASE in
 
 	jammy)
 		DEBOOTSTRAP_COMPONENTS="main,universe,multiverse"
-		DEBOOTSTRAP_LIST+=" rng-tools5 fdisk iptables patch python3.10 armbian-config network-manager"
+		DEBOOTSTRAP_LIST+=" rng-tools5 fdisk iptables patch python3.10  network-manager unzip"
 		[[ -z $BUILD_MINIMAL || $BUILD_MINIMAL == no ]] && PACKAGE_LIST_RELEASE="man-db kbd net-tools gnupg2 dirmngr networkd-dispatcher selinux-policy-default"
 		PACKAGE_LIST_DESKTOP+=" xserver-xorg-input-all paprefs dbus-x11 pulseaudio-module-gsettings onboard"
 		PACKAGE_LIST_DESKTOP_RECOMMENDS+=" firefox system-config-printer-common system-config-printer \

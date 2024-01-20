@@ -27,12 +27,6 @@ diskimg=$1
 loop=$(losetup -f)
 ./output/amlimg/AmlImg unpack output/amlimg/eMMC.burn.img output/amlimg
 sudo losetup  --show --partscan $loop $diskimg
-sudo mount ${loop}p1 /tmp/amlimg
-cp -f  packages/bsp/aml-s812/uEnv.txt /tmp/amlimg/uEnv.txt
-mkimage -C none -A arm -T script -d packages/bsp/aml-s812/boot.ini /tmp/amlimg/boot.scr
-mkimage -A arm -O linux -T kernel -C none -a 0x00208000 -e 0x00208000 -n "Linux kernel uImage" -d ./cache/sources/linux-aml-current/meson-mx-integration-5.9-20200930/arch/arm/boot/zImage /tmp/amlimg/uImage
-dtc -I dts -O dtb packages/bsp/aml-s812/meson8m2-mxiii-plus.dts -o /tmp/amlimg/dtb/meson8m2-mxiii-plus.dtb > /dev/null 2>&1
-sudo umount /tmp/amlimg
 sudo img2simg ${loop}p1 output/amlimg/boot.simg
 sudo img2simg ${loop}p2 output/amlimg/rootfs.simg
 sudo losetup -d $loop

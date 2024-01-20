@@ -663,6 +663,8 @@
 			status = "okay";
 			clocks = <0x05 0x41>;
 			clock-names = "otg";
+      usb-role-switch;
+			role-switch-default-mode = "device";
 		};
 
 		usb@c90c0000 {
