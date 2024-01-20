@@ -549,6 +549,11 @@ prepare_partitions()
         fi
 	fi
 
+  #Change dtb for aml-s812(onecloud)...
+  if [[ $BOARD==aml-s812 && -f $DEST/bsp/aml-s812/meson8m2-mxiii-plus.dts ]]; then
+    echo "Using dtb $SRC/bsp/aml-s812/meson8m2-mxiii-plus.dts for aml-s812..."
+    dtc -I dts -O dtb $SRC/bsp/aml-s812/meson8m2-mxiii-plus.dts -o $SDCARD/boot/dtb/meson8m2-mxiii-plus.dtb > /dev/null 2>&1
+  fi
 	# recompile .cmd to .scr if boot.cmd exists
 	[[ -f $SDCARD/boot/boot.ini ]] && \
 		mkimage -C none -A arm -T script -d $SDCARD/boot/boot.ini $SDCARD/boot/boot.scr > /dev/null 2>&1
