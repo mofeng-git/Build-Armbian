@@ -550,8 +550,9 @@ prepare_partitions()
 	fi
 
 	# recompile .cmd to .scr if boot.cmd exists
-	[[ -f $SDCARD/boot/boot.cmd ]] && \
-		mkimage -C none -A arm -T script -d $SDCARD/boot/boot.cmd $SDCARD/boot/boot.scr > /dev/null 2>&1
+	[[ -f $SDCARD/boot/boot.ini ]] && \
+		mkimage -C none -A arm -T script -d $SDCARD/boot/boot.ini $SDCARD/boot/boot.scr > /dev/null 2>&1
+    mkimage -A arm -O linux -T kernel -C none -a 0x00208000 -e 0x00208000 -n "Linux kernel uImage" -d $SDCARD/boot/zImage $SDCARD/boot/uImage
 
 } #############################################################################
 
