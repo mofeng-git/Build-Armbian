@@ -491,7 +491,9 @@ prepare_partitions()
 			echo "$ROOT_MAPPER UUID=$(blkid -s UUID -o value ${LOOP}p${rootpart}) none luks" >> $SDCARD/etc/crypttab
 			local rootfs=$rootdevice # used in fstab
 		else
-			local rootfs="LABEL=ROOTFS"
+      #using uuid
+      echo "$ROOT_MAPPER UUID=$(blkid -s UUID -o value ${LOOP}p${rootpart})"
+			local rootfs="UUID=$(blkid -s UUID -o value ${LOOP}p${rootpart})"
 		fi
 		echo "$rootfs / ${mkfs[$ROOTFS_TYPE]} defaults,noatime,nodiratime${mountopts[$ROOTFS_TYPE]} 0 1" >> $SDCARD/etc/fstab
 	fi
@@ -501,7 +503,8 @@ prepare_partitions()
 		mkfs.${mkfs[$bootfs]} ${mkopts[$bootfs]} ${LOOP}p${bootpart} >> "${DEST}"/debug/install.log 2>&1
 		mkdir -p $MOUNT/boot/
 		mount ${LOOP}p${bootpart} $MOUNT/boot/
-		echo "LABEL=BOOT /boot ${mkfs[$bootfs]} defaults${mountopts[$bootfs]} 0 2" >> $SDCARD/etc/fstab
+    #using uuid
+		echo "UUID=$(blkid -s UUID -o value ${LOOP}p${bootpart}) /boot ${mkfs[$bootfs]} defaults${mountopts[$bootfs]} 0 2" >> $SDCARD/etc/fstab
 	fi
 	[[ $ROOTFS_TYPE == nfs ]] && echo "/dev/nfs / nfs defaults 0 0" >> $SDCARD/etc/fstab
 	echo "tmpfs /tmp tmpfs defaults,nosuid 0 0" >> $SDCARD/etc/fstab
@@ -528,7 +531,9 @@ prepare_partitions()
 			local rootpart="UUID=$(blkid -s UUID -o value ${LOOP}p${rootpart})"
 			sed -i 's/^setenv rootdev .*/setenv rootdev "\/dev\/mapper\/'$ROOT_MAPPER' cryptdevice='$rootpart':'$ROOT_MAPPER'"/' $SDCARD/boot/boot.ini
 		else
-			sed -i 's/^setenv rootdev .*/setenv rootdev "'$rootfs'"/' $SDCARD/boot/boot.ini
+       #using uuid
+			sed -i 's/LABEL=ROOTFS/'"$rootfs"'/' $SDCARD/boot/uEnv.txt
+      #cat $SDCARD/boot/uEnv.txt
 		fi
 		if [[  $LINUXFAMILY != meson64 ]]; then
 			[[ -f $SDCARD/boot/armbianEnv.txt ]] && rm $SDCARD/boot/armbianEnv.txt
