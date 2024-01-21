@@ -36,8 +36,8 @@ Main() {
 			# your code here
 			;;
     jammy)
-		  #cd /tmp/overlay/One-KVM-main
-      #bash install.sh
+		  cd /tmp/overlay/One-KVM-main
+      bash install.sh
       cp /tmp/overlay/led/* /usr/bin/
       cat <<EOF >/etc/rc.local
 #!/bin/bash
@@ -48,6 +48,7 @@ if [ ! -f /etc/network/mac ]; then
     /sbin/ifconfig eth0 down
 	/sbin/ifconfig eth0 hw ether \$MAC
 	/sbin/ifconfig eth0 up
+  reboot
 fi
 green_on
 exit 0
