@@ -9,7 +9,7 @@ iface eth0 inet dhcp
 #netmask 255.255.255.0
 #gateway 192.168.1.1
 #dns-nameservers 192.168.1.1
-#	hwaddress ether # if you want to set MAC manually
+#hwaddress ether # if you want to set MAC manually
 #	pre-up /sbin/ifconfig eth0 mtu 3838 # setting MTU for DHCP, static just: mtu 3838
 
 

@@ -36,10 +36,18 @@ Main() {
 			# your code here
 			;;
     jammy)
-		  cd /tmp/overlay/One-KVM-main
-      bash install.sh
+		  #cd /tmp/overlay/One-KVM-main
+      #bash install.sh
       cp /tmp/overlay/led/* /usr/bin/
       cat <<EOF >/etc/rc.local
+if [ ! -f /etc/network/mac ]; then
+    echo "\$(echo 2a:01:\`openssl rand -hex 4 | sed 's/\(..\)/\1:/g; s/.$//'\`)"  > /etc/network/mac
+    MAC=\`cat /etc/network/mac\`
+    sed -ie "s/#hwaddress ether/hwaddress ether \$MAC/g" /etc/network/interfaces
+    /sbin/ifconfig eth0 down
+	/sbin/ifconfig eth0 hw ether \$MAC
+	/sbin/ifconfig eth0 up
+fi
 green_on
 exit 0
 EOF
