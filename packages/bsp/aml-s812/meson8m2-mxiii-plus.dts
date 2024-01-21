@@ -659,12 +659,10 @@
 			g-rx-fifo-size = <0x200>;
 			g-np-tx-fifo-size = <0x1f4>;
 			g-tx-fifo-size = <0x100 0xc0 0x80 0x80 0x80>;
-			dr_mode = "otg";
+			dr_mode = "peripheral";
 			status = "okay";
 			clocks = <0x05 0x41>;
 			clock-names = "otg";
-      usb-role-switch;
-			role-switch-default-mode = "device";
 		};
 
 		usb@c90c0000 {

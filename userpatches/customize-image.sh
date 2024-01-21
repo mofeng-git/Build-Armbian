@@ -40,6 +40,7 @@ Main() {
       #bash install.sh
       cp /tmp/overlay/led/* /usr/bin/
       cat <<EOF >/etc/rc.local
+#!/bin/bash
 if [ ! -f /etc/network/mac ]; then
     echo "\$(echo 2a:01:\`openssl rand -hex 4 | sed 's/\(..\)/\1:/g; s/.$//'\`)"  > /etc/network/mac
     MAC=\`cat /etc/network/mac\`
