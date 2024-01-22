@@ -36,8 +36,8 @@ Main() {
 			# your code here
 			;;
     jammy)
-		  cd /tmp/overlay/One-KVM-main
-      bash install.sh
+		  #cd /tmp/overlay/One-KVM-main
+      #bash install.sh
       cp /tmp/overlay/led/* /usr/bin/
       cat <<EOF >/etc/rc.local
 #!/bin/bash

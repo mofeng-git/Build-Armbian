@@ -350,7 +350,7 @@ prepare_partitions()
 	# mountopts[nfs] is empty
 
 	# default BOOTSIZE to use if not specified
-	DEFAULT_BOOTSIZE=256	# MiB
+	DEFAULT_BOOTSIZE=128	# MiB
 
 	# stage: determine partition configuration
 	if [[ -n $BOOTFS_TYPE ]]; then
