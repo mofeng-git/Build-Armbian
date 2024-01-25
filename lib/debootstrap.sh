@@ -398,7 +398,7 @@ prepare_partitions()
 			btrfs)
 				# Used for server images, currently no swap functionality, so disk space
 				if [[ $BTRFS_COMPRESSION == none ]]; then
-					local sdsize=$(bc -l <<< "scale=0; (($imagesize * 1.25) / 4 + 1) * 4")
+					local sdsize=$(bc -l <<< "scale=0; (($imagesize * 1.4) / 4 + 1) * 4")
 				else
 					# requirements are rather low since rootfs gets filled with compress-force=zlib
 					local sdsize=$(bc -l <<< "scale=0; (($imagesize * 0.8) / 4 + 1) * 4")
