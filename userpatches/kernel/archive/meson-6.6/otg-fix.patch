@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: SilentWind <john.doe@somewhere.on.planet>
+Date: Fri, 2 Feb 2024 21:57:12 +0800
+Subject: fix onecloud otg
+
+Signed-off-by: SilentWind <john.doe@somewhere.on.planet>
+---
+ drivers/usb/dwc2/core_intr.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/dwc2/core_intr.c b/drivers/usb/dwc2/core_intr.c
+index 158ede753..cf261581c 100644
+--- a/drivers/usb/dwc2/core_intr.c
++++ b/drivers/usb/dwc2/core_intr.c
+@@ -524,12 +524,12 @@ static void dwc2_handle_usb_suspend_intr(struct dwc2_hsotg *hsotg)
+ 			case DWC2_POWER_DOWN_PARAM_NONE:
+ 				/*
+ 				 * If neither hibernation nor partial power down are supported,
+ 				 * clock gating is used to save power.
+ 				 */
+-				if (!hsotg->params.no_clock_gating)
+-					dwc2_gadget_enter_clock_gating(hsotg);
++				if (!hsotg->params.no_clock_gating) ;
++					//dwc2_gadget_enter_clock_gating(hsotg);
+ 			}
+ 
+ 			/*
+ 			 * Change to L2 (suspend) state before releasing
+ 			 * spinlock
+-- 
+Created with Armbian build tools https://github.com/armbian/build
+

@@ -35,27 +35,10 @@ Main() {
 		focal)
 			# your code here
 			;;
-    jammy)
-		  #cd /tmp/overlay/One-KVM-main
-      #bash install.sh
-      cp /tmp/overlay/led/* /usr/bin/
-      cat <<EOF >/etc/rc.local
-#!/bin/bash
-if [ ! -f /etc/network/mac ]; then
-    echo "\$(echo 2a:01:\`openssl rand -hex 4 | sed 's/\(..\)/\1:/g; s/.$//'\`)"  > /etc/network/mac
-    MAC=\`cat /etc/network/mac\`
-    sed -ie "s/#hwaddress ether/hwaddress ether \$MAC/g" /etc/network/interfaces
-    /sbin/ifconfig eth0 down
-	/sbin/ifconfig eth0 hw ether \$MAC
-	/sbin/ifconfig eth0 up
-  reboot
-fi
-green_on
-exit 0
-EOF
-      chmod +x /etc/rc.local
-      systemctl enable rc-local.service
-      apt clean
+		jammy)
+			cd /tmp/overlay/One-KVM
+      			bash install.sh
+      			apt clean
 			;;
 	esac
 } # Main
@@ -209,7 +192,7 @@ InstallOpenMediaVault() {
 		bananapim3|nanopifire3|nanopct3plus|nanopim3)
 			HMP_Fix='; taskset -c -p 4-7 $i '
 			;;
-		rk33*|edge*|ficus|firefly-rk3399|nanopct4|nanopim4|nanopineo4|renegade-elite|roc-rk3399-pc|rockpro64)
+		edge*|ficus|firefly-rk3399|nanopct4|nanopim4|nanopineo4|renegade-elite|roc-rk3399-pc|rockpro64|station-p1)
 			HMP_Fix='; taskset -c -p 4-5 $i '
 			;;
 	esac
@@ -257,7 +240,7 @@ UnattendedStorageBenchmark() {
 
 InstallAdvancedDesktop()
 {
-	apt install -yy transmission libreoffice libreoffice-style-tango meld remmina thunderbird kazam avahi-daemon
+	apt-get install -yy transmission libreoffice libreoffice-style-tango meld remmina thunderbird kazam avahi-daemon
 	[[ -f /usr/share/doc/avahi-daemon/examples/sftp-ssh.service ]] && cp /usr/share/doc/avahi-daemon/examples/sftp-ssh.service /etc/avahi/services/
 	[[ -f /usr/share/doc/avahi-daemon/examples/ssh.service ]] && cp /usr/share/doc/avahi-daemon/examples/ssh.service /etc/avahi/services/
 	apt clean

@@ -1,0 +1,121 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: SilentWind <john.doe@somewhere.on.planet>
+Date: Sat, 3 Feb 2024 14:03:38 +0800
+Subject: Patching kernel meson files fo install PiKVM
+
+Signed-off-by: SilentWind <john.doe@somewhere.on.planet>
+---
+ arch/arm/boot/dts/amlogic/meson8b-onecloud.dts | 10 +-
+ arch/arm/boot/dts/amlogic/meson8b.dtsi         | 48 ----------
+ 2 files changed, 5 insertions(+), 53 deletions(-)
+
+diff --git a/arch/arm/boot/dts/amlogic/meson8b-onecloud.dts b/arch/arm/boot/dts/amlogic/meson8b-onecloud.dts
+index 6ed195220..08ef7bf79 100644
+--- a/arch/arm/boot/dts/amlogic/meson8b-onecloud.dts
++++ b/arch/arm/boot/dts/amlogic/meson8b-onecloud.dts
+@@ -57,20 +57,20 @@ leds {
+ 
+ 		red {
+ 			label = "onecloud:red:alive";
+ 			gpios = <&gpio_ao GPIOAO_2 GPIO_ACTIVE_HIGH>;
+ 
+-			default-state = "on";
+-			linux,default-trigger = "default-on";
++			default-state = "off";
++			linux,default-trigger = "mmc1";
+ 		};
+ 
+ 		green {
+ 			label = "onecloud:green:alive";
+ 			gpios = <&gpio_ao GPIOAO_3 GPIO_ACTIVE_HIGH>;
+ 
+-			default-state = "off";
+-			linux,default-trigger = "mmc1";
++			default-state = "on";
++			linux,default-trigger = "default-on";
+ 		};
+ 
+ 		blue {
+ 			label = "onecloud:blue:alive";
+ 			gpios = <&gpio_ao GPIOAO_4 GPIO_ACTIVE_HIGH>;
+@@ -430,13 +430,11 @@ eth_phy: ethernet-phy@0 {
+ 	};
+ };
+ 
+ &usb0 {
+ 	status = "okay";
+-	dr_mode = "otg";
+-	usb-role-switch;
+-	role-switch-default-mode = "host";
++	dr_mode = "peripheral";
+ };
+ 
+ &usb0_phy {
+ 	status = "okay";
+ };
+diff --git a/arch/arm/boot/dts/amlogic/meson8b.dtsi b/arch/arm/boot/dts/amlogic/meson8b.dtsi
+index da9216eee..eb074b94b 100644
+--- a/arch/arm/boot/dts/amlogic/meson8b.dtsi
++++ b/arch/arm/boot/dts/amlogic/meson8b.dtsi
+@@ -69,58 +69,10 @@ cpu3: cpu@203 {
+ 
+ 	cpu_opp_table: opp-table {
+ 		compatible = "operating-points-v2";
+ 		opp-shared;
+ 
+-		opp-96000000 {
+-			opp-hz = /bits/ 64 <96000000>;
+-			opp-microvolt = <860000>;
+-		};
+-		opp-192000000 {
+-			opp-hz = /bits/ 64 <192000000>;
+-			opp-microvolt = <860000>;
+-		};
+-		opp-312000000 {
+-			opp-hz = /bits/ 64 <312000000>;
+-			opp-microvolt = <860000>;
+-		};
+-		opp-408000000 {
+-			opp-hz = /bits/ 64 <408000000>;
+-			opp-microvolt = <860000>;
+-		};
+-		opp-504000000 {
+-			opp-hz = /bits/ 64 <504000000>;
+-			opp-microvolt = <860000>;
+-		};
+-		opp-600000000 {
+-			opp-hz = /bits/ 64 <600000000>;
+-			opp-microvolt = <860000>;
+-		};
+-		opp-720000000 {
+-			opp-hz = /bits/ 64 <720000000>;
+-			opp-microvolt = <860000>;
+-		};
+-		opp-816000000 {
+-			opp-hz = /bits/ 64 <816000000>;
+-			opp-microvolt = <900000>;
+-		};
+-		opp-1008000000 {
+-			opp-hz = /bits/ 64 <1008000000>;
+-			opp-microvolt = <1140000>;
+-		};
+-		opp-1200000000 {
+-			opp-hz = /bits/ 64 <1200000000>;
+-			opp-microvolt = <1140000>;
+-		};
+-		opp-1320000000 {
+-			opp-hz = /bits/ 64 <1320000000>;
+-			opp-microvolt = <1140000>;
+-		};
+-		opp-1488000000 {
+-			opp-hz = /bits/ 64 <1488000000>;
+-			opp-microvolt = <1140000>;
+-		};
+ 		opp-1536000000 {
+ 			opp-hz = /bits/ 64 <1536000000>;
+ 			opp-microvolt = <1140000>;
+ 		};
+ 	};
+-- 
+Created with Armbian build tools https://github.com/armbian/build
+
