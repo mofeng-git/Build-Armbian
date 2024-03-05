@@ -1131,10 +1131,24 @@
 	leds {
 		compatible = "gpio-leds";
 		
-   blue {
-			label = "BugScaner:blue:alive";
+	red {
+			label = "onecloud:red:alive";
+			gpios = <0x3e 0x0b 0x01>;
+			linux,default-trigger = "mmc0";
+			default-state = "off";
+		};
+		
+   	green {
+			label = "onecloud:green:alive";
+			gpios = <0x3e 0x0c 0x01>;
+			linux,default-trigger = "default-on";
+			default-state = "on";
+		};
+		
+	bule {
+			label = "onecloud:bule:alive";
 			gpios = <0x3e 0x0d 0x01>;
-			linux,default-trigger = "heartbeat";
+			linux,default-trigger = "usb-host";
 			default-state = "off";
 		};
 	};

@@ -15,6 +15,7 @@ fi
 
 if [ ! -d "output/amlimg" ];then
   sudo mkdir output/amlimg
+  sudo chmod -R 777 output/amlimg
 fi
 
 
@@ -30,7 +31,7 @@ fi
 
 if [ ! -f "output/amlimg/eMMC.burn.img" ];then
   #sudo curl -L -o output/amlimg/eMMC.burn.img https://github.com/hzyitc/u-boot-onecloud/releases/download/build-20221028-0940/eMMC.burn.img
-  cp -f userpatches/eMMC.burn.img output/amlimg/
+  sudo cp -f userpatches/eMMC.burn.img output/amlimg/
 fi
 
 #解包转换为线刷包所需格式
@@ -42,7 +43,7 @@ sudo losetup -d $loop
 #sudo chown $(id -u):$(id -g) -R output/amlimg/
 
 #写入刷机文件，去除分区校验
-cat <<EOF >output/amlimg/commands.txt
+sudo cat <<EOF >output/amlimg/commands.txt
 USB:DDR:normal:0.DDR.USB
 USB:UBOOT_COMP:normal:1.UBOOT_COMP.USB
 ini:aml_sdc_burn:normal:2.aml_sdc_burn.ini
@@ -64,7 +65,7 @@ echo "complete! File:$burnimg"
 sdimg=$diskimg.sdupdate.zip
 
 #sudo cp output/amlimg/boot.simg /mnt && sudo cp output/amlimg/rootfs.simg /mnt
-cp -f userpatches/ReadMe.txt output/amlimg/
+sudo cp -f userpatches/ReadMe.txt output/amlimg/
 sudo mkimage -C none -A arm -T script -d userpatches/sdburning.ini output/amlimg/boot.scr 
 cd output/amlimg && sudo zip ../../$sdimg boot.scr  boot.simg rootfs.simg ReadMe.txt
 echo "complete! File:$sdimg"
