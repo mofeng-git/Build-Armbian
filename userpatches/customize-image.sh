@@ -23,6 +23,14 @@ Main() {
 			# your code here
 			;;
     		jammy)
+    			 cp /tmp/overlay/led/* /usr/bin/
+    			 cat <<EOF >/etc/rc.local
+#!/bin/bash
+green_on
+exit 0
+EOF
+      			chmod +x /etc/rc.local
+      			systemctl enable rc-local.service
 		 	#cd /tmp/overlay/One-KVM
       			#bash install.sh
 			;;

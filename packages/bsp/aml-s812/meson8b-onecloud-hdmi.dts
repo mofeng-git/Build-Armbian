@@ -1142,7 +1142,7 @@
 			label = "onecloud:green:alive";
 			gpios = <0x3e 0x0c 0x01>;
 			linux,default-trigger = "default-on";
-			default-state = "on";
+			default-state = "off";
 		};
 		
 	bule {
