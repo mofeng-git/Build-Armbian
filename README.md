@@ -1,5 +1,5 @@
 <h3 align=center><img src="https://github.com/mofeng-git/Build-Armbian/assets/62919083/add9743a-0987-4e8a-b2cb-62121f236582" alt="logo" width="300"><br></h3>
-<h3 align=center><a href="https://github.com/mofeng-git/Build-Armbian/blob/master/README.md">简体中文</a>  ||  <a href="https://github.com/mofeng-git/Build-Armbian/blob/master/README-English.md">English</a></h3>
+<h3 align=center><a href="https://github.com/mofeng-git/Build-Armbian/blob/master/README.md">简体中文</a>
 <p align=right>&nbsp;</p>
 
 ## 这个项目是做什么的？
@@ -20,14 +20,15 @@
 - 如您希望在中国大陆的主机上进行编译，还需配置好网络代理以便脚本能正确从Github上获取所需其他编译资源。
 
 ```bash
-git clone https://github.com/mofeng-git/Build-Armbian
+git  clone --depth=1 https://github.com/mofeng-git/Build-Armbian
 cd Build-Armbian
-#编译U盘/SD卡镜像
-./compile.sh  BOARD=aml-s812 BRANCH=current RELEASE=jammy BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=sha,img EXTRAWIFI=yes
-#打包晶晨线刷镜像
-su
-./lib/burnimg-pack.sh output/images/Armbian_20.12_Aml-s812_jammy_current_5.9.0-rc7_minimal.img
+#编译玩客云 Armian U盘/SD卡镜像
+./compile.sh  BOARD=aml-s812 BRANCH=current RELEASE=jammy BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=sha,img EXTRAWIFI=yes DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tun
+#打包玩客云线刷镜像和卡刷文件包
+sudo ./userpatches/burnimg-pack.sh output/images/Armbian_24.03_Aml-s812_jammy_current_5.9.0-rc7_minimal.img
 ```
+
+One-KVM的预装命令在./userpatches/customize-image.sh，可根据需要进行修改。
 
 ![image](https://github.com/mofeng-git/Build-Armbian/assets/62919083/38f8cfc8-418d-419d-9c7f-3d733f32927c)
 
